@@ -1,5 +1,6 @@
 package com.example.homeworkproject
 
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -25,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Homework App"
 
+        registerBroadcastReceiver()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -45,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         dialogBuilder.setMessage("Are you sure you want to exit the app?")
 
         dialogBuilder.setPositiveButton("Yes") { dialog, which ->
-            finishAffinity()
+            finish()
         }
         dialogBuilder.setNegativeButton("No") { dailog, which ->
 
@@ -53,6 +56,12 @@ class MainActivity : AppCompatActivity() {
 
         val dialog = dialogBuilder.create()
         dialog.show()
+    }
+
+    private fun registerBroadcastReceiver() {
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(MESSAGE_SENT)
+        registerReceiver(MyBroadcastReceiver(), intentFilter)
     }
 
 }
