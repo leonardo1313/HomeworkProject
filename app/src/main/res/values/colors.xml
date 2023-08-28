@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="main_fragment_color">#009688</color>
+    <color name="second_fragment_color">#AFB42B</color>
+    <color name="button_color">#303F9F</color>
 </resources>

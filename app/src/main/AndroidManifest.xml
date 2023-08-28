@@ -25,7 +25,7 @@
         <receiver android:name=".MyBroadcastReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.sendmessage.Broadcast"/>
+                <action android:name="com.sendMessage.Broadcast"/>
             </intent-filter>
         </receiver>
 

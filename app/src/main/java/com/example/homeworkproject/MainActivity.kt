@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.widget.ViewPager2
 
 class MainActivity : AppCompatActivity() {
@@ -26,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Homework App"
 
-        registerBroadcastReceiver()
 
+        registerBroadcastReceiver()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -61,7 +62,8 @@ class MainActivity : AppCompatActivity() {
     private fun registerBroadcastReceiver() {
         val intentFilter = IntentFilter()
         intentFilter.addAction(MESSAGE_SENT)
-        registerReceiver(MyBroadcastReceiver(), intentFilter)
+        //registerReceiver(MyBroadcastReceiver(), intentFilter)
+        LocalBroadcastManager.getInstance(this).registerReceiver(MyBroadcastReceiver(), intentFilter)
     }
 
 }

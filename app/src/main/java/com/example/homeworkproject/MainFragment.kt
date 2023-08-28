@@ -1,5 +1,6 @@
 package com.example.homeworkproject
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import androidx.fragment.app.commit
-import androidx.fragment.app.setFragmentResultListener
+import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +22,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class MainFragment : Fragment() {
+
+    //var localBroadcastManager = context?.let { LocalBroadcastManager.getInstance(it) }
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -41,8 +44,14 @@ class MainFragment : Fragment() {
         view?.let {
                 messageInput = it.findViewById(R.id.message_input_et)
                 sendMessageBtn = it.findViewById(R.id.send_message_btn)
-
-            sendMessageBtnAction()
+        }
+        sendMessageBtn.setOnClickListener {
+            if (messageInput.text.isNotEmpty()) {
+                sendMessage()
+            }
+            else {
+                Toast.makeText(context, "Please enter message.", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -55,33 +64,11 @@ class MainFragment : Fragment() {
 
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MainFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MainFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 
-    private fun sendMessageBtnAction() {
-        sendMessageBtn.setOnClickListener {
-            /*parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                add(R.id.fragment_container, SecondFragment())
-                addToBackStack(null)
-            }*/
+    private fun sendMessage() {
+        val localBroadcastIntent = Intent(MESSAGE_SENT).apply {
+            putExtra("MESSAGE_KEY", messageInput.text.toString())
         }
+        LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(localBroadcastIntent)
     }
 }
